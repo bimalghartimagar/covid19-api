@@ -9,6 +9,7 @@ app = Flask(__name__)
 def update():
   temp_df = pd.read_csv('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv')
   temp_df.to_csv('data.csv', index=False)
+  global df
   df = temp_df
 
 if not os.path.exists('data.csv'):
@@ -27,7 +28,7 @@ def locations():
 
 @app.route('/data/<string:location>')
 def country_data(location):
-  return df.loc[df['location']==location].loc[:,['date','total_cases']].to_json(orient = 'values')
+  return df.loc[df['location']==location].loc[:,['date','total_cases','new_cases']].to_json(orient = 'values')
 
 
 if __name__== "__main__":
