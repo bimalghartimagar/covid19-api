@@ -2,6 +2,7 @@ from flask import Flask, jsonify, render_template
 import requests
 import pandas as pd
 import os
+import urllib
 
 app = Flask(__name__)
 
@@ -28,6 +29,8 @@ def locations():
 
 @app.route('/data/<string:location>')
 def country_data(location):
+  # Fix encoded string issue for country names with spaces
+  location = urllib.parse.unquote(location)
   return df.loc[df['location']==location].loc[:,['date','total_cases','new_cases']].to_json(orient = 'values')
 
 
