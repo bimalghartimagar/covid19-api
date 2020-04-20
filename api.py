@@ -31,7 +31,7 @@ def locations():
 def country_data(location):
   # Fix encoded string issue for country names with spaces
   location = urllib.parse.unquote(location)
-  return df.loc[df['location']==location].loc[:,['date','total_cases','new_cases']].to_json(orient = 'values')
+  return df.loc[df['location']==location].loc[:,['date','total_cases','new_cases','total_deaths','new_deaths']].to_json(orient = 'values')
 
 
 if __name__== "__main__":
